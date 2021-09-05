@@ -17,7 +17,7 @@ All settings are defined in the main.py file via argparse flags. Therefore, the 
 
 #### 1. Single Shapes
 
-    python main.py --shapes ellipse && python main.py --shapes ellipse --stim_ellipse_ratio 0.3 1.2
+    python main.py --shapes ellipse && python main.py --shapes ellipse --stim_ratio 0.3 1.2
 ![ellipse 1](examples/ellipse2.png)
 ![ellispe 2](examples/ellipse1.png)
 
@@ -58,8 +58,7 @@ The following parameters can be changed from the command line to customise the s
 
     --stim_poly_size            default size of polygon
     --stim_star_size            default size of star
-    --stim_rect_ratio           default width to height for rectangles
-    --stim_ellipse_ratio        default width to height for ellipses
+    --stim_ratio                default width to height
     
     --stim_scale                default width and height scale 
     --stim_rota                 default rotation
@@ -68,6 +67,7 @@ The following parameters can be changed from the command line to customise the s
     --stim_colour               default colour [r g b]
 
     --rng_scale                 range of scale transformation
+    --rng_ratio                 range of width to height transformation
     --rng_trx                   range of translation along x
     --rng_try                   range of translation along y
     --rng_rota                  range of rotation transformation
