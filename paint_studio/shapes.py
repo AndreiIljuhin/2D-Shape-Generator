@@ -6,8 +6,8 @@ Timo Flesch, 2017
 import cairo
 import math 
 
-def drawRect(ctx,centre,size,rectRatio):
-	ctx.rectangle(0-(size/rectRatio[0])/2,0-(size/rectRatio[1])/2,size/rectRatio[0],size/rectRatio[1])
+def drawRect(ctx,centre,size):
+	ctx.rectangle(0-(size)/2,0-(size)/2,size,size)
 	return ctx
 
 def drawPolygon(ctx,centre,size,numVertices=4):
@@ -33,13 +33,6 @@ def drawStar(ctx,centre,outerRadius,innerRadius,numVertices=5):
 	return ctx
 
 
-def drawCircle(ctx,centre,size):
+def drawEllipse(ctx,centre,size):
 	ctx.arc(0,0,size,0,math.pi*2)
-	return ctx
-
-def drawEllipse(ctx,centre,size,scale):	
-	ctx.scale(scale[0],scale[1])	
-	ctx = drawCircle(ctx,[0,0],size)
-	ctx.scale(1,1)
-	ctx.translate(0,centre[1])
 	return ctx

@@ -43,12 +43,14 @@ def makeStimulus(img,FLAGS,idces,valueDict,centre,stim_shape,ctx,imgID):
 	# this loop overwrites the defaults for each feature dimension that is parametrically varied (e.g. scale, rota)
 	# by values corresponding to the indexed positions in their range vectors
 	print('-----new stimulus-------')	
+	params = stim_shape + ' '
 	for ii,dim in enumerate(FLAGS.to_transform): # iterate through dimensions to transform
 		# for selected dimension (e.g. scale), retrieve vector of requested feature values from dictionary
 		vals = valueDict[dim]		
 		# set the "default" for this particular feature 
 		setattr(FLAGS,'stim_'+dim,vals[idces[ii]])
-		print(stim_shape + ' ' + dim + str(getattr(FLAGS,'stim_'+dim)))
+		params += dim + str(getattr(FLAGS,'stim_'+dim)) + ' '
+	print(params)
 	# now, draw a shape with the new set of parameters
 	ctx = drawShape(ctx,FLAGS,
 			[0,0],
@@ -56,26 +58,24 @@ def makeStimulus(img,FLAGS,idces,valueDict,centre,stim_shape,ctx,imgID):
 	tmp = np.frombuffer(img.get_data(),np.uint8)
 	tmp.shape = [FLAGS.canvas_size[0],FLAGS.canvas_size[1],4]
 	tmp = tmp[:,:,0:3]
-	img.write_to_png('img_' + FLAGS.name[0] + '.png')
+	img.write_to_png(str(getattr(FLAGS,'outdir')) + 'img_' + params + '.png')
 	return ctx,tmp,img 
 
 
 def drawShape(ctx,FLAGS,centre,stimShape):	
 	ctx = translateShape(ctx,centre[0],centre[1])
 	ctx = translateShape(ctx,FLAGS.stim_trx,FLAGS.stim_try)
-	ctx = rotateShape(ctx,FLAGS.stim_rota)			
-	ctx = scaleShape(ctx,FLAGS.stim_scale)	
+	ctx = rotateShape(ctx,FLAGS.stim_rota)
+	ctx = scaleShape(ctx,[FLAGS.stim_scale / FLAGS.stim_ratio, FLAGS.stim_scale])	
 	ctx = colouriseShape(ctx,FLAGS.stim_colour)
 	if stimShape=='rect':				
-		ctx = drawRect(ctx,centre,FLAGS.stim_poly_size,FLAGS.stim_rect_ratio)		
+		ctx = drawRect(ctx,centre,FLAGS.stim_poly_size)		
 	elif stimShape[0:4]=='poly':
 		ctx = drawPolygon(ctx,centre,FLAGS.stim_poly_size,numVertices=int(stimShape[4:]))
 	elif stimShape[0:4]=='star':
 		ctx = drawStar(ctx,centre,FLAGS.stim_star_size[0],FLAGS.stim_star_size[1],numVertices=int(stimShape[4:]))	
-	elif stimShape=='circle':
-		ctx = drawCircle(ctx,centre,FLAGS.stim_poly_size)
 	elif stimShape=='ellipse':
-		ctx = drawEllipse(ctx,centre,FLAGS.stim_poly_size,FLAGS.stim_ellipse_ratio)
+		ctx = drawEllipse(ctx,centre,FLAGS.stim_poly_size)
 
 	ctx.fill()
 	return ctx

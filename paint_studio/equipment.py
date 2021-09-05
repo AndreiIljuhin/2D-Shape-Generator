@@ -47,8 +47,6 @@ def makeValueDict(FLAGS):
 	for ii,dim in enumerate(FLAGS.to_transform):				
 		if dim=='colour':
 			valDict[dim] = colourGradient(FLAGS.num_transformations)
-		elif dim=='scale':
-			valDict[dim] = [(jj,jj) for jj in np.linspace(getattr(FLAGS,'rng_'+dim)[0],getattr(FLAGS,'rng_'+dim)[1],num=FLAGS.num_transformations)]
 		else:
 			valDict[dim] = np.linspace(getattr(FLAGS,'rng_'+dim)[0],getattr(FLAGS,'rng_'+dim)[1],num=FLAGS.num_transformations)
 			

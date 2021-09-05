@@ -43,36 +43,34 @@ parser.add_argument('--shapes',                type=str,   nargs='+', default=['
 parser.add_argument('--to_transform',          type=str,   nargs='+', default=[],
 	                                           help='dimensions to transform with num_transformations. \
 	                                           All other dims kept constant (scale,rota,trx,try,colour; default: None)')
-parser.add_argument('--stim_poly_size',        type=int,                default=20,
+parser.add_argument('--stim_poly_size',        type=int,                default=50,
 	                                           help='Polygon "Radius"  (default: 50)')
-parser.add_argument('--stim_star_size',        type=float,   nargs='+', default=[20,10],
-	                                           help='Star Radii (outer, inner; default: [50,25])')
-parser.add_argument('--stim_ellipse_ratio',    type=float, nargs='+', default=[1,.5],
-	                                           help='Scaling of Circle to generate Ellipse')
-parser.add_argument('--stim_rect_ratio',    type=float, nargs='+', default=[.5,1],
-	                                           help='Scaling of square to generate rect')
-parser.add_argument('--stim_scale',            type=float, nargs='+', default=[1,1],
-	                                           help='Stimulus Scaling (default: (1,1)')
-parser.add_argument('--stim_rota',             type=float,            default=0,
+parser.add_argument('--stim_star_size',        type=float,   nargs='+', default=[50,25],
+	                                           help='Star Radius (outer, inner; default: [50,25])')
+parser.add_argument('--stim_ratio',    		   type=float,		   	   default=1,
+	                                           help='The ratio of height and width')
+parser.add_argument('--stim_scale',            type=float,			   default=1,
+	                                           help='Stimulus Scaling (default: 1')
+parser.add_argument('--stim_rota',             type=float,             default=0,
                                                help='Stimulus Rotation (deg; default: 0)')
 parser.add_argument('--stim_trx',              type=float,             default=125,
-	                                           help='Stimulus Translation along x (default: centre)')
+	                                           help='Stimulus Translation along x (default: centre(125))')
 parser.add_argument('--stim_try',              type=float,             default=125,
-	                                           help='Stimulus Translation along y (default: 0)')
+	                                           help='Stimulus Translation along y (default: centre(125))')
 parser.add_argument('--stim_colour',           type=float,  nargs='+', default=[1., 1., 1.],
 	                                           help='Stimulus Colour (default: [1.,1.,1.]')
 
 # transformation ranges -----------------------------------------------------------------
-parser.add_argument('--rng_ratio',             type=float, nargs='+', default=[.2, 5.],
-                                               help='Shape width to height ratio (min,max; defaults:[.2, 5.]')
+parser.add_argument('--rng_ratio',             type=float, nargs='+', default=[.5, 2.],
+                                               help='Shape width to height ratio (min,max; defaults:[.5, 2.]')
 parser.add_argument('--rng_trx',               type=float, nargs='+', default=[.10, .90],
-                                               help='Translation along x in decimal fractions (min,max; defaults:[.05, .95]')
+                                               help='Translation along x in decimal fractions (min,max; defaults:[.10, .90]')
 parser.add_argument('--rng_try',               type=float, nargs='+', default=[.10, .90], 
-	                                           help='Translation along y in decimal fractions (min,max; defaults:[.05, .95]')
+	                                           help='Translation along y in decimal fractions (min,max; defaults:[.10, .90]')
 parser.add_argument('--rng_rota',              type=int,   nargs='+', default=[-45, 45], 
 	                                           help='Rotation in deg (min,max; defaults:[-45, 45]')
 parser.add_argument('--rng_scale',             type=float, nargs='+', default=[.5, 1.5],
-                                               help='Scale decimal fractions (min,max; defaults:[.2, 1.]')
+                                               help='Scale decimal fractions (min,max; defaults:[.5, 1.5]')
 
 
 FLAGS,_ = parser.parse_known_args() # ignore unspecified args
