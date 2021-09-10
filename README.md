@@ -17,7 +17,7 @@ All settings are defined in the main.py file via argparse flags. Therefore, the 
 
 #### 1. Single Shapes
 
-    python main.py --shapes ellipse && python main.py --shapes ellipse --stim_ratio 0.3 1.2
+    python main.py --shapes ellipse --name ellipse1 && python main.py --shapes ellipse --name ellipse2 --stim_ratio 0.3 1.2
 ![ellipse 1](examples/ellipse2.png)
 ![ellispe 2](examples/ellipse1.png)
 

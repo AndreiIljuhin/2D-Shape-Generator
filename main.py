@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser()
 # general -------------------------------------------------------------------------------
 parser.add_argument('--outdir','-o',           type=str,   nargs='+', default='./output/', 
 	                                           help='Output directory (default: ./output/')
-parser.add_argument('--name',                  type=str,   nargs='+', default=['stim2D_'],
+parser.add_argument('--name',                  type=str,              default='stim2D_',
                                                help='File Name (default: stim2D_')
 parser.add_argument('--parallel',              type=int,   nargs=1,   default=0, 
 	                                           help='Do Parallel Processing (default: 0)')
@@ -84,7 +84,7 @@ def main(argv=None):
 	data['images'] = all_IMGs # store all the images
 	data['params'] = vars(FLAGS) # store all the parameters
 	data['idces']  = all_idces  # for each image, store the feature values. (feature correspondence encoded in FLAGS.to_transform (same order))
-	saveData(data,FLAGS.to_transform,FLAGS.shapes,FLAGS.outdir)
+	saveData(data,FLAGS.to_transform,FLAGS.shapes,FLAGS.outdir, FLAGS.name)
 if __name__ == '__main__':
 	""" start the fun"""
 	main()
