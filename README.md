@@ -47,6 +47,7 @@ The following parameters can be changed from the command line to customise the s
 
     --outdir                    output directory
     --name                      file name
+    --create_mat                create mat file [boolean]
 
     --canvas_size               size of image [px]
     --canvas_bccol              background colour [r g b]    
