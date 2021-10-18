@@ -5,7 +5,7 @@ Timo Flesch, 2017
 
 import cairo
 import numpy as np
-# from colour import Color
+from colour import Color
 
 
 def makeSurface(ssize):
@@ -29,24 +29,24 @@ def clearContext(ctx,col):
 	return ctx
 
 
-# def colourGradient(col1,col2,numCols=10):
-# 	#TODO define colourmaps
-# 	c1 = Color(col1)
-# 	c2 = Color(col2)
-# 	colors = list(c1.range_to(c2,numCols))
-# 	colors_RGB = [c.rgb for c in colors]
-# 	return colors_RGB
+def colourGradient(col1=Color(rgb=(0, .4, .8)),col2=Color(rgb=(1, 1, 1)),numCols=10):
+	#TODO define colourmaps
+	c1 = Color(col1)
+	c2 = Color(col2)
+	colors = list(c1.range_to(c2,numCols))
+	colors_RGB = [c.rgb for c in colors]
+	return colors_RGB
 
-def colourGradient(numCols=10):
-	cols = [(1-ii,0,ii) for ii in np.linspace(0,1,numCols)]
-	return cols 
+# def colourGradient(numCols=10):
+# 	cols = [(1-ii,0,ii) for ii in np.linspace(0,1,numCols)]
+# 	return cols 
 
 def makeValueDict(FLAGS):
 	# generate arrays of linearily spaced parameter values for each dimension to manipulate
 	valDict = {}
 	for ii,dim in enumerate(FLAGS.to_transform):				
 		if dim=='colour':
-			valDict[dim] = colourGradient(FLAGS.num_transformations)
+			valDict[dim] = colourGradient(numCols=FLAGS.num_transformations)
 		else:
 			valDict[dim] = np.linspace(getattr(FLAGS,'rng_'+dim)[0],getattr(FLAGS,'rng_'+dim)[1],num=FLAGS.num_transformations)
 			

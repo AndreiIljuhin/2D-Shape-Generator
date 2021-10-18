@@ -27,6 +27,9 @@ parser.add_argument('--name',                  type=str,              default='s
 parser.add_argument('--parallel',              type=int,   nargs=1,   default=0, 
 	                                           help='Do Parallel Processing (default: 0)')
 
+parser.add_argument('--create_mat',            type=bool,   nargs=1,   default=False, 
+	                                           help='Create mat file (default: false)')
+
 # canvas --------------------------------------------------------------------------------
 parser.add_argument('--canvas_size',           type=int,   nargs='+', default=[250, 250],
                                                help='Size of Image Canvas (default: 250x250px)')
@@ -42,7 +45,7 @@ parser.add_argument('--shapes',                type=str,   nargs='+', default=['
 	                                           help='Shapes (rect, polyNUM,starNUM, ellipse) ')
 parser.add_argument('--to_transform',          type=str,   nargs='+', default=[],
 	                                           help='dimensions to transform with num_transformations. \
-	                                           All other dims kept constant (scale,rota,trx,try,colour; default: None)')
+	                                           All other dims kept constant (scale,rota,ratio,trx,try,colour; default: None)')
 parser.add_argument('--stim_poly_size',        type=int,                default=50,
 	                                           help='Polygon "Radius"  (default: 50)')
 parser.add_argument('--stim_star_size',        type=float,   nargs='+', default=[50,25],
@@ -61,7 +64,7 @@ parser.add_argument('--stim_colour',           type=float,  nargs='+', default=[
 	                                           help='Stimulus Colour (default: [1.,1.,1.]')
 
 # transformation ranges -----------------------------------------------------------------
-parser.add_argument('--rng_ratio',             type=float, nargs='+', default=[.5, 2.],
+parser.add_argument('--rng_ratio',             type=float, nargs='+', default=[.5, 1.5],
                                                help='Shape width to height ratio (min,max; defaults:[.5, 2.]')
 parser.add_argument('--rng_trx',               type=float, nargs='+', default=[.10, .90],
                                                help='Translation along x in decimal fractions (min,max; defaults:[.10, .90]')
@@ -69,7 +72,7 @@ parser.add_argument('--rng_try',               type=float, nargs='+', default=[.
 	                                           help='Translation along y in decimal fractions (min,max; defaults:[.10, .90]')
 parser.add_argument('--rng_rota',              type=int,   nargs='+', default=[-45, 45], 
 	                                           help='Rotation in deg (min,max; defaults:[-45, 45]')
-parser.add_argument('--rng_scale',             type=float, nargs='+', default=[.5, 1.5],
+parser.add_argument('--rng_scale',             type=float, nargs='+', default=[.5, 1.2],
                                                help='Scale decimal fractions (min,max; defaults:[.5, 1.5]')
 
 
@@ -80,11 +83,12 @@ print(FLAGS)
 
 def main(argv=None):	
 	all_IMGs,all_idces = drawStimuli(FLAGS)
-	data = {}
-	data['images'] = all_IMGs # store all the images
-	data['params'] = vars(FLAGS) # store all the parameters
-	data['idces']  = all_idces  # for each image, store the feature values. (feature correspondence encoded in FLAGS.to_transform (same order))
-	saveData(data,FLAGS.to_transform,FLAGS.shapes,FLAGS.outdir, FLAGS.name)
+	if (getattr(FLAGS,'create_mat')):
+		data = {}
+		data['images'] = all_IMGs # store all the images
+		data['params'] = vars(FLAGS) # store all the parameters
+		data['idces']  = all_idces  # for each image, store the feature values. (feature correspondence encoded in FLAGS.to_transform (same order))
+		saveData(data,FLAGS.to_transform,FLAGS.shapes,FLAGS.outdir, FLAGS.name)
 if __name__ == '__main__':
 	""" start the fun"""
 	main()
